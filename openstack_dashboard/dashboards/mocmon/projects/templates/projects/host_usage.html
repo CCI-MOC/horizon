@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "HOST Usage" %}{% endblock %}
+
+{% block page_header %}
+ {% include "horizon/common/_domain_page_header.html" with title=page_title %}
+{% endblock page_header %}
+
+{% block main %}
+<div>
+    <h2 class="col-md-7 "><a href="/mocmon/{{ project_id }}/detail"><span class="glyphicon glyphicon-chevron-left"></span></a>  {{ host }}</h2>
+    {% for panel in panel_list %}
+            <div class="row">
+            <iframe src={{panel.source}} width="800" height="300" frameborder="0"></iframe>
+            </div>
+		{% endfor %}
+</div>
+{% endblock %}

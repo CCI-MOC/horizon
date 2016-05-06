@@ -140,7 +140,9 @@ class ComputeHostTable(tables.DataTable):
                                u"Down")),
     )
 
-    host = tables.Column('host', verbose_name=_('Host'))
+    host = tables.Column('host',
+                         link="horizon:admin:hypervisors:detail",
+                          verbose_name=_('Host'))
     zone = tables.Column('zone', verbose_name=_('Zone'))
     status = tables.Column('status',
                            status=True,
@@ -156,6 +158,15 @@ class ComputeHostTable(tables.DataTable):
                                verbose_name=_('Updated At'),
                                filters=(utils_filters.parse_isotime,
                                         filters.timesince))
+    def get_host_detail_link(self,datum):
+        url = "/mocmon/{}".format(datum.host)
+        return url
+    def __init__(self, request, data=None, needs_form_wrapper=None, **kwargs):
+        super(ComputeHostTable,
+              self).__init__(request, data=data,
+                             needs_form_wrapper=needs_form_wrapper,
+                             **kwargs)
+        self.columns['host'].get_link_url = self.get_host_detail_link
 
     def get_object_id(self, obj):
         return obj.host

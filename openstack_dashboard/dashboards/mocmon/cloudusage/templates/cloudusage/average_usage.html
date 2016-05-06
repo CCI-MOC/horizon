@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Cloud Average Utilization" %}{% endblock %}
+
+{% block page_header %}
+  {% include "horizon/common/_domain_page_header.html" with title=page_title %}
+{% endblock page_header %}
+
+{% block main %}
+
+    <div>
+        {% if admin_grafana %}
+    <form action="{{ admin_grafana  }}" method="get" target="_blank">
+    <button type="submit" class="btn btn-default" aria-label="leftalign">
+        <span class="ng-scope">Grafana Dashboard</span>
+        </button><br>
+    </form>
+        {% endif %}
+    </div>
+<div class="average_usage">
+
+		{% for panel in panel_list %}
+            <div class="row">
+            <iframe src={{panel.source}} width="800" height="300" frameborder="0"></iframe>
+            </div>
+		{% endfor %}
+</div>
+{% endblock %}

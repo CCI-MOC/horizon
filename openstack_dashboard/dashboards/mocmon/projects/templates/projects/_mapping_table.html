@@ -1,0 +1,27 @@
+{% load i18n %}
+{% for key, vms in hosts.items %}
+        <form action="/mocmon/average_usage/"method="get" >
+    <button type="submit" class="btn btn-default btn-lg btn-block">{{ key }}</button>
+    </form>
+
+<table class="table table-striped table-hover table-bordered">
+  <thead>
+    <tr >
+      <th>{% trans "VM_Name" %}</th>
+      <th>{% trans "VM_ID" %}</th>
+      <th>{% trans "Creation" %}</th>
+      <th>{% trans "Deletion" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for vm in vms %}
+        <tr>
+            <td>{{ vm.name }}</td>
+            <td>{{ vm.id }}</td>
+            <td>{{ vm.created_at }}</td>
+            <td>{{ vm.deleted_at }}</td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endfor %}

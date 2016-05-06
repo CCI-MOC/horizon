@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Cloud Average Utilization" %}{% endblock %}
+
+{% block page_header %}
+  {% include "horizon/common/_domain_page_header.html" with title=page_title %}
+{% endblock page_header %}
+
+{% block main %}
+
+<div class="average_usage">
+		{% for panel in panel_list %}
+            <div class="row">
+            <iframe src={{panel.source}} width="800" height="300" frameborder="0"></iframe>
+            </div>
+		{% endfor %}
+</div>
+{% endblock %}
